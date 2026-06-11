@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Cup 2026 Live Tracker</title>
+<style>
+  body{font-family:Arial,sans-serif;margin:0;background:#07111f;color:#f6f7fb}header{padding:28px;text-align:center;background:#0d233f}h1{margin:0;font-size:32px}.status{font-size:13px;color:#9fd3b7;margin-top:8px}.wrap{max-width:1100px;margin:0 auto;padding:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.card{background:#fff;color:#111;border-radius:14px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.2)}.team{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:8px 0}.team:last-child{border-bottom:0}.pill{font-size:12px;padding:3px 8px;border-radius:20px;background:#e7f7ef;color:#08733a}.match{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;border-bottom:1px solid #eee;padding:10px 0}.match:last-child{border-bottom:0}.score{font-weight:bold;background:#07111f;color:white;border-radius:8px;padding:6px 10px}.muted{color:#667;font-size:12px}.error{background:#3b1111;color:#ffd0d0;padding:12px;border-radius:10px;margin-bottom:12px}button{background:#00a550;color:white;border:0;border-radius:8px;padding:10px 14px;font-weight:bold;cursor:pointer}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚽ World Cup 2026 Live Tracker</h1>
+  <div class="status" id="status">Loading live data…</div>
+</header>
+<main class="wrap">
+  <div class="topbar">
+    <div>Public live tracker powered by football-data.org via Cloudflare Worker.</div>
+    <button onclick="loadData()">Refresh</button>
+  </div>
+  <div id="error"></div>
+  <div class="grid">
+    <section class="card"><h2>Current Matches</h2><div id="matches"></div></section>
+    <section class="card"><h2>Team Progress</h2><div id="teams"></div></section>
+  </div>
+</main>
+<script>
+const API_URL = 'https://YOUR-WORKER-NAME.YOUR-SUBDOMAIN.workers.dev/matches';
+const FLAGS = {Argentina:'🇦🇷',Brazil:'🇧🇷',England:'🏴',France:'🇫🇷',Germany:'🇩🇪',Spain:'🇪🇸',Portugal:'🇵🇹',Mexico:'🇲🇽',Canada:'🇨🇦',USA:'🇺🇸',Japan:'🇯🇵',Morocco:'🇲🇦',Netherlands:'🇳🇱',Belgium:'🇧🇪',Switzerland:'🇨🇭'};
+function flag(name){return FLAGS[name]||'🏳️'}
+function stageLabel(s){return (s||'').replaceAll('_',' ').toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())||'TBC'}
+function matchStatus(m){ if(m.status==='FINISHED') return 'FT'; if(['IN_PLAY','PAUSED'].includes(m.status)) return 'LIVE'; return 'Upcoming'; }
+async function loadData(){
+  document.getElementById('status').textContent='Refreshing…';
+  document.getElementById('error').innerHTML='';
+  try{
+    const r=await fetch(API_URL);
+    if(!r.ok) throw new Error('API returned HTTP '+r.status);
+    const data=await r.json();
+    render(data.matches||[]);
+    document.getElementById('status').textContent='Live data updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){
+    document.getElementById('status').textContent='Live data unavailable';
+    document.getElementById('error').innerHTML='<div class="error">'+e.message+'</div>';
+  }
+}
+function render(matches){
+  const now = new Date();
+  const upcoming = matches.slice().sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate)).filter(m=>new Date(m.utcDate)>=new Date(now.getTime()-86400000)).slice(0,12);
+  document.getElementById('matches').innerHTML = upcoming.map(m=>{
+    const h=m.homeTeam?.name||'TBC', a=m.awayTeam?.name||'TBC';
+    const hs=m.score?.fullTime?.home, as=m.score?.fullTime?.away;
+    const score = hs==null || as==null ? 'vs' : hs+'-'+as;
+    return `<div class="match"><div>${flag(h)} ${h}</div><div class="score">${score}</div><div style="text-align:right">${a} ${flag(a)}</div><div class="muted">${new Date(m.utcDate).toLocaleString('en-GB')}</div><div class="muted">${matchStatus(m)}</div><div class="muted" style="text-align:right">${stageLabel(m.stage)}</div></div>`;
+  }).join('') || '<p class="muted">No matches available.</p>';
+  const teams={};
+  matches.forEach(m=>{[m.homeTeam,m.awayTeam].forEach(t=>{if(t?.name) teams[t.name]={name:t.name, crest:t.crest, stage:m.stage, status:m.status};});});
+  document.getElementById('teams').innerHTML = Object.values(teams).sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<div class="team"><span>${flag(t.name)} ${t.name}</span><span class="pill">${stageLabel(t.stage)}</span></div>`).join('') || '<p class="muted">No team data available.</p>';
+}
+loadData();
+setInterval(loadData, 5*60*1000);
+</script>
+</body>
+</html>
