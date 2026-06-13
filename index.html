@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:        #040B14;
-  --surface:   #070F1C;
-  --surface2:  #0C1929;
-  --surface3:  #102236;
-  --border:    rgba(0,212,255,0.12);
-  --border2:   rgba(0,212,255,0.06);
-  --cyan:      #00D4FF;
-  --cyan-dim:  rgba(0,212,255,0.15);
-  --cyan-glow: rgba(0,212,255,0.06);
+  --bg:        #0A1628;
+  --surface:   #0F1E35;
+  --surface2:  #162540;
+  --surface3:  #1C2E4A;
+  --border:    rgba(100,160,220,0.25);
+  --border2:   rgba(100,160,220,0.14);
+  --cyan:      #38C8F0;
+  --cyan-dim:  rgba(56,200,240,0.15);
+  --cyan-glow: rgba(56,200,240,0.07);
   --gold:      #F5A623;
-  --gold-dim:  rgba(245,166,35,0.12);
-  --green:     #00FF88;
-  --green-dim: rgba(0,255,136,0.1);
-  --red:       #FF4466;
-  --red-dim:   rgba(255,68,102,0.1);
-  --text:      #E8F0F8;
-  --text-mid:  #7A9BB5;
-  --text-dim:  #3D5A72;
+  --gold-dim:  rgba(245,166,35,0.15);
+  --green:     #2EE89A;
+  --green-dim: rgba(46,232,154,0.12);
+  --red:       #FF5577;
+  --red-dim:   rgba(255,85,119,0.13);
+  --text:      #F0F6FF;
+  --text-mid:  #A8C0DA;
+  --text-dim:  #6A8BAA;
   --radius:    12px;
   --radius-sm: 7px;
   --mono:      'Space Mono', monospace;
@@ -49,8 +49,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(100,160,220,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100,160,220,0.05) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -62,7 +62,7 @@ body::before {
   z-index: 10;
   padding: 0 24px;
   border-bottom: 1px solid var(--border);
-  background: rgba(4,11,20,0.95);
+  background: rgba(10,22,40,0.98);
   backdrop-filter: blur(12px);
 }
 .header-inner {
@@ -190,7 +190,7 @@ body::before {
   position: relative;
   z-index: 5;
   background: var(--surface);
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 2px solid var(--border);
   padding: 0 24px;
   display: flex;
   gap: 0;
@@ -200,18 +200,20 @@ body::before {
 .tabs-bar::-webkit-scrollbar { display: none; }
 .tab {
   flex-shrink: 0;
-  padding: 13px 18px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-dim);
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-mid);
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
   cursor: pointer;
   font-family: var(--sans);
   transition: color 0.2s, border-color 0.2s;
   letter-spacing: 0.3px;
 }
+.tab:hover { color: var(--text); }
 .tab.active { color: var(--cyan); border-bottom-color: var(--cyan); }
 
 /* ── CONTENT ── */
@@ -234,58 +236,60 @@ body::before {
 }
 .stat-card {
   background: var(--surface2);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px 16px;
+  padding: 16px;
   text-align: center;
 }
 .stat-num {
   font-family: var(--mono);
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--cyan);
   line-height: 1;
 }
 .stat-label {
-  font-size: 11px;
-  color: var(--text-dim);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-mid);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 4px;
+  letter-spacing: 0.8px;
+  margin-top: 5px;
 }
 
 /* ── DATA TABLE ── */
 .data-table {
   background: var(--surface2);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 16px;
 }
 .table-header {
-  padding: 10px 16px;
+  padding: 11px 16px;
   background: var(--surface3);
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .table-title {
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--mono);
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--cyan);
+  font-weight: 700;
 }
 .table-count {
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--mono);
-  color: var(--text-dim);
+  color: var(--text-mid);
 }
 
 /* ── MATCH ROW ── */
 .match-row {
-  padding: 12px 16px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border2);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -299,16 +303,18 @@ body::before {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13.5px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
 }
 .match-team-away {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  font-size: 13.5px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
   text-align: right;
 }
 .match-center {
@@ -322,20 +328,20 @@ body::before {
   justify-content: center;
 }
 .score-box {
-  width: 30px; height: 30px;
+  width: 32px; height: 32px;
   background: var(--surface3);
   border: 1px solid var(--border);
   border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
 }
 .score-vs {
   font-family: var(--mono);
-  font-size: 11px;
-  color: var(--text-dim);
+  font-size: 12px;
+  color: var(--text-mid);
 }
 .match-badges {
   display: flex;
@@ -351,16 +357,17 @@ body::before {
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 700;
 }
-.badge-live { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,68,102,0.2); }
-.badge-ft   { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border2); }
-.badge-tbc  { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,212,255,0.2); }
-.badge-stage{ background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,166,35,0.2); }
+.badge-live { background: var(--red-dim); color: var(--red); border: 1px solid rgba(255,85,119,0.3); }
+.badge-ft   { background: var(--surface3); color: var(--text-mid); border: 1px solid var(--border); }
+.badge-tbc  { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(56,200,240,0.3); }
+.badge-stage{ background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,166,35,0.3); }
 .match-date {
-  font-size: 10px;
-  color: var(--text-dim);
+  font-size: 11px;
+  color: var(--text-mid);
   font-family: var(--mono);
-  margin-top: 2px;
+  margin-top: 3px;
   text-align: center;
 }
 .team-flag { font-size: 18px; line-height: 1; flex-shrink: 0; }
@@ -646,14 +653,32 @@ let currentFilter = 'all';
 
 // ── HELPERS ───────────────────────────────────────────────────────
 function stageLabel(s) {
-  if (!s) return 'TBC';
-  return s.replace(/_/g,' ').toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
+  if (!s) return 'Group Stage';
+  const map = {
+    'GROUP_STAGE':'Group Stage','LAST_32':'Round of 32','LAST_16':'Round of 16',
+    'QUARTER_FINALS':'Quarter-final','SEMI_FINALS':'Semi-final',
+    'THIRD_PLACE':'3rd Place','FINAL':'Final'
+  };
+  return map[s] || s.replace(/_/g,' ').toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
 }
+
+// football-data.org statuses: SCHEDULED, TIMED, IN_PLAY, PAUSED, HALFTIME, FINISHED, POSTPONED, SUSPENDED, CANCELLED
 function matchStatusKey(m) {
   if (m.status === 'FINISHED') return 'FINISHED';
   if (['IN_PLAY','PAUSED','HALFTIME'].includes(m.status)) return 'LIVE';
-  return 'UPCOMING';
+  return 'UPCOMING'; // SCHEDULED, TIMED, POSTPONED etc.
 }
+
+function isUpcoming(m) { return matchStatusKey(m) === 'UPCOMING'; }
+function isFinished(m) { return m.status === 'FINISHED'; }
+function isLive(m)     { return matchStatusKey(m) === 'LIVE'; }
+
+function hasValidScore(m) {
+  const h = m.score?.fullTime?.home;
+  const a = m.score?.fullTime?.away;
+  return h !== null && h !== undefined && a !== null && a !== undefined && m.status === 'FINISHED';
+}
+
 function fmtDate(utc) {
   return new Date(utc).toLocaleString('en-GB',{
     weekday:'short', day:'numeric', month:'short',
@@ -661,7 +686,7 @@ function fmtDate(utc) {
   });
 }
 
-// ── LOAD DATA ─────────────────────────────────────────────────────
+// ── LOAD DATA — with staleness guard ─────────────────────────────
 async function loadData() {
   document.getElementById('status-text').textContent = 'Refreshing…';
   document.getElementById('error-bar').innerHTML = '';
@@ -669,16 +694,35 @@ async function loadData() {
     const r = await fetch(API_URL);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
-    allMatches = (data.matches || []).sort((a,b) => new Date(a.utcDate)-new Date(b.utcDate));
+    const fetched = (data.matches || []);
+
+    // Staleness guard: only update if we got meaningful data
+    // (at least as many matches as before, and tournament has started)
+    const finishedCount = fetched.filter(isFinished).length;
+    const prevFinished = allMatches.filter(isFinished).length;
+
+    if (fetched.length === 0) {
+      throw new Error('API returned empty match list');
+    }
+    // Accept update if: first load, more finished games than before, or same count (normal refresh)
+    if (allMatches.length === 0 || finishedCount >= prevFinished) {
+      allMatches = fetched.sort((a,b) => new Date(a.utcDate)-new Date(b.utcDate));
+    } else {
+      console.warn(`Stale data guard: API returned ${finishedCount} finished vs cached ${prevFinished} — keeping cache`);
+    }
+
     renderStats();
     renderMatches();
     renderGroups();
     const t = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('status-text').textContent = 'Updated ' + t;
   } catch(e) {
-    document.getElementById('status-text').textContent = 'Connection error';
+    console.warn('loadData error:', e);
+    document.getElementById('status-text').textContent = allMatches.length ? 'Cached data' : 'Connection error';
     document.getElementById('error-bar').innerHTML =
-      `<div class="error-bar">⚠ ${e.message} — retrying in 60s</div>`;
+      `<div class="error-bar">⚠ ${e.message}${allMatches.length ? ' — showing cached data' : ' — retrying in 60s'}</div>`;
+    // Still render if we have cached data
+    if (allMatches.length) { renderStats(); renderMatches(); renderGroups(); }
   }
 }
 
@@ -704,55 +748,98 @@ function filterMatches(f, el) {
 }
 
 function renderMatches() {
-  let list = allMatches;
-  if (currentFilter === 'LIVE') list = list.filter(m => ['IN_PLAY','PAUSED','HALFTIME'].includes(m.status));
-  else if (currentFilter === 'FINISHED') list = list.filter(m => m.status === 'FINISHED').slice(-30).reverse();
-  else if (currentFilter === 'UPCOMING') list = list.filter(m => !['FINISHED','IN_PLAY','PAUSED','HALFTIME'].includes(m.status)).slice(0,30);
-  else {
-    // All: show last 5 results + upcoming 25
-    const recent = allMatches.filter(m => m.status === 'FINISHED').slice(-5).reverse();
-    const upcoming = allMatches.filter(m => !['FINISHED','IN_PLAY','PAUSED','HALFTIME'].includes(m.status)).slice(0,25);
-    const live = allMatches.filter(m => ['IN_PLAY','PAUSED','HALFTIME'].includes(m.status));
-    list = [...live, ...recent, ...upcoming];
+  let list = [];
+
+  if (currentFilter === 'LIVE') {
+    list = allMatches.filter(isLive);
+    if (!list.length) {
+      document.getElementById('matches-container').innerHTML =
+        `<div class="loader" style="padding:40px;color:var(--text-mid)">No live matches right now.<br><small style="color:var(--text-dim)">Check back during a match window.</small></div>`;
+      return;
+    }
+  } else if (currentFilter === 'FINISHED') {
+    // All results, most recent first
+    list = allMatches.filter(isFinished).reverse();
+  } else if (currentFilter === 'UPCOMING') {
+    // All future fixtures in date order
+    list = allMatches.filter(isUpcoming);
+  } else {
+    // Smart "All" view: live first, then today's matches, then last 8 results, then next 20 fixtures
+    const todayStr = new Date().toLocaleDateString('en-GB',{timeZone:'Europe/London'});
+    const todayMatches = allMatches.filter(m => {
+      const d = new Date(m.utcDate).toLocaleDateString('en-GB',{timeZone:'Europe/London'});
+      return d === todayStr;
+    });
+    const liveNow    = allMatches.filter(isLive);
+    const recentResults = allMatches.filter(isFinished).slice(-8).reverse();
+    const nextFixtures  = allMatches.filter(isUpcoming).slice(0, 20);
+
+    // Merge: live → today's non-live → recent results → upcoming
+    const seen = new Set();
+    const merge = (...arrays) => arrays.flat().filter(m => {
+      if (seen.has(m.id)) return false;
+      seen.add(m.id); return true;
+    });
+    list = merge(liveNow, todayMatches, recentResults, nextFixtures);
   }
 
   if (!list.length) {
     document.getElementById('matches-container').innerHTML =
-      `<div class="loader" style="padding:40px">No matches found for this filter.</div>`;
+      `<div class="loader" style="padding:40px;color:var(--text-mid)">No matches for this filter.</div>`;
     return;
   }
 
   // Group by date
   const byDate = {};
   list.forEach(m => {
-    const d = new Date(m.utcDate).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'Europe/London'});
+    const d = new Date(m.utcDate).toLocaleDateString('en-GB',{
+      weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'Europe/London'
+    });
     if (!byDate[d]) byDate[d] = [];
     byDate[d].push(m);
   });
 
+  // Determine today label
+  const todayLabel = new Date().toLocaleDateString('en-GB',{
+    weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'Europe/London'
+  });
+
   let html = '';
   Object.entries(byDate).forEach(([date, ms]) => {
-    html += `<div class="data-table" style="margin-bottom:12px">
-      <div class="table-header">
-        <span class="table-title">${date}</span>
+    const isToday = date === todayLabel;
+    html += `<div class="data-table" style="margin-bottom:12px${isToday ? ';border-color:rgba(56,200,240,0.35)' : ''}">
+      <div class="table-header"${isToday ? ' style="background:rgba(56,200,240,0.1)"' : ''}>
+        <span class="table-title">${isToday ? '📅 TODAY — ' : ''}${date}</span>
         <span class="table-count">${ms.length} match${ms.length!==1?'es':''}</span>
       </div>`;
+
     ms.forEach(m => {
-      const h = m.homeTeam?.name || 'TBC';
-      const a = m.awayTeam?.name || 'TBC';
+      const h  = m.homeTeam?.name || 'TBC';
+      const a  = m.awayTeam?.name || 'TBC';
       const hs = m.score?.fullTime?.home;
-      const as2 = m.score?.fullTime?.away;
+      const as2= m.score?.fullTime?.away;
       const sk = matchStatusKey(m);
-      const hasScore = hs !== null && hs !== undefined && as2 !== null && as2 !== undefined;
-      const scoreHtml = hasScore
+
+      // Only show score if match is finished AND both values are numbers
+      const showScore = sk === 'FINISHED' && typeof hs === 'number' && typeof as2 === 'number';
+
+      const scoreHtml = showScore
         ? `<div class="score-display">
             <div class="score-box">${hs}</div>
             <span class="score-vs">:</span>
             <div class="score-box">${as2}</div>
            </div>`
-        : `<div class="score-display"><span class="score-vs">vs</span></div>`;
-      const badgeClass = sk==='LIVE'?'badge-live':sk==='FINISHED'?'badge-ft':'badge-tbc';
-      const badgeLabel = sk==='LIVE'?'● LIVE':sk==='FINISHED'?'FT':'TBC';
+        : sk === 'LIVE'
+          ? `<div class="score-display">
+              <div class="score-box" style="border-color:var(--red);color:var(--red)">${hs ?? '–'}</div>
+              <span class="score-vs" style="color:var(--red)">:</span>
+              <div class="score-box" style="border-color:var(--red);color:var(--red)">${as2 ?? '–'}</div>
+             </div>`
+          : `<div class="score-display"><span class="score-vs" style="font-size:14px">vs</span></div>`;
+
+      const badgeClass = sk==='LIVE' ? 'badge-live' : sk==='FINISHED' ? 'badge-ft' : 'badge-tbc';
+      const badgeLabel = sk==='LIVE' ? '● LIVE'     : sk==='FINISHED' ? 'FT'       : fmtDate(m.utcDate).split(',')[1]?.trim() || 'TBC';
+
       html += `<div class="match-row">
         <div class="match-team-home"><span class="team-flag">${flag(h)}</span>${h}</div>
         <div class="match-center">
@@ -761,7 +848,6 @@ function renderMatches() {
             <span class="badge ${badgeClass}">${badgeLabel}</span>
             <span class="badge badge-stage">${stageLabel(m.stage)}</span>
           </div>
-          <div class="match-date">${fmtDate(m.utcDate)}</div>
         </div>
         <div class="match-team-away">${a}<span class="team-flag">${flag(a)}</span></div>
       </div>`;
@@ -855,7 +941,11 @@ function showTab(name, el) {
 
 // ── INIT ──────────────────────────────────────────────────────────
 loadData();
-setInterval(loadData, 5 * 60 * 1000);
+// Refresh every 3 minutes normally; if error, retry every 60s
+let refreshInterval = setInterval(loadData, 3 * 60 * 1000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) loadData(); // refresh when tab becomes visible again
+});
 </script>
 </body>
 </html>
